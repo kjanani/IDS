@@ -62,14 +62,16 @@ def getHashtags(topic_decomp_file,id_str_file,output_file):
         hashtags_ = list(map(lambda x: str.lower(x['text']), temp_result['entities']['hashtags']));
         print(str(ii) + ' ' + str(id_str[ii]) + ' ' + str(docs_sorted_topics[ii]) + ' ' + '-'.join(hashtags_))
         fout.write(str(id_str[ii]) + ' ' + str(docs_sorted_topics[ii]) + ' ' + '-'.join(hashtags_) + '\n');
-def get_relevant_hashtags(vocab_file, no_topics, tweet):
+def get_relevant_hashtags(tweet):
 
-    hashtags_list = list(map(lambda x: x.strip().split()[0], open('../data_processing_files/hashtag_counts_new.txt','r').readlines()))[:500];
-    topic_hashtag_tweets = eval(open('../output/BTM_OUTPUT/models/first_run/topic_hashtags_tweets_k150.txt').read());
+    vocab_file = '/Users/jananikalyanam/Documents/insight_application/PROJECT/output/BTM_OUTPUT/models/first_run/vocab.txt';
+    no_topics = 150;
+    hashtags_list = list(map(lambda x: x.strip().split()[0], open('/Users/jananikalyanam/Documents/insight_application/PROJECT/data_processing_files/hashtag_counts_new.txt','r').readlines()))[:500];
+    topic_hashtag_tweets = eval(open('/Users/jananikalyanam/Documents/insight_application/PROJECT/output/BTM_OUTPUT/models/first_run/topic_hashtags_tweets_k150.txt').read());
     [btm_number_input, btm_vocab_input] = text_processing.convert_to_btm_input_test(vocab_file,tweet);
 
-    user_tweet_file = '../user_io/user_tweet.txt';
-    output_path = '../user_io/'
+    user_tweet_file = '/Users/jananikalyanam/Documents/insight_application/PROJECT/user_io/user_tweet.txt';
+    output_path = '/Users/jananikalyanam/Documents/insight_application/PROJECT/user_io/'
     fout = open(user_tweet_file,'w');
     fout.write(btm_number_input);
     fout.close();
@@ -80,17 +82,6 @@ def get_relevant_hashtags(vocab_file, no_topics, tweet):
 
     smaller = list(set(hashtags_list).intersection(set(topic_hashtag_tweets[dominant_topic][1])));
     return smaller;
-    #return_hashtag_list = [];
-    #ii = 0;
-    #for each_ in hashtags_list:                                                                                                              
-    #    if(each_ in smaller):
-    #        print(each_);
-    #        return_hashtag_list.append(each_);
-    #        ii += 1;
-    #    if(ii == 20):
-    #        break;
-    
-    # return return_hashtag_list;
 
 
 if __name__ == '__main__':
@@ -115,7 +106,5 @@ if __name__ == '__main__':
 
 
     # Find relevant hashtags for test tweets
-    vocab_file = '../output/BTM_OUTPUT/models/first_run/vocab.txt';
-    no_topics = 150;
     tweet = 'i love golden globe awards i think they are awesome'
-    get_relevant_hashtags(vocab_file, no_topics, tweet);
+    get_relevant_hashtags(tweet);
