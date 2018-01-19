@@ -20,7 +20,7 @@ def getvocab():
                 vocab[x] = 1;
     fout.write(str(vocab))
 
-def convert_to_btm_input(vocab_file,output_file):
+def convert_to_btm_input_training(vocab_file,output_file):
     client = pymongo.MongoClient();
     db = client['IDS'];
     collection = db.collection_hashtag;
@@ -50,7 +50,25 @@ def convert_to_btm_input(vocab_file,output_file):
     fid2.close()
     client.close()
 
+def convert_to_btm_input_test(vocab_file,input_text):
+
+
+    vocab = list(map(lambda x: x.strip().split(' ')[1], open(vocab_file,'r').readlines()));
+
+    words = tweet_utils.clean_up_normal_text(input_text);
+    myStr = '';
+    myStr_words = '';
+    for word in words:
+        if(word in vocab):
+            myStr = myStr + str(vocab.index(word)) + ' ';
+            myStr_words += word + ' ' ;
+    return [myStr, myStr_words];
+    
+
 if __name__ == '__main__':
 
     #getvocab();
-    #convert_to_btm_input('../data_processing_files/vocab.txt','../data_processing_files/btm_input.txt');
+    #convert_to_btm_input_training('../data_processing_files/vocab.txt','../data_processing_files/btm_input.txt');
+    #convert_to_btm_input_test('../data_processing_files/vocab.txt','../data_processing_files/btm_input.txt');
+
+    print(convert_to_btm_input_test(vocab_file,input_text))

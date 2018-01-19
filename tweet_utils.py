@@ -78,3 +78,16 @@ def get_text_normalized(tweet):
     
     #Stem the words.
     return [stemmer.stem(t) for t in text]
+
+def clean_up_normal_text(text):
+
+    text = text.split();
+
+    #remove stopwords
+    text = [t for t in text if t not in stopwords.words('english')]
+
+    #Create the stemmer
+    stemmer = LancasterStemmer();
+
+    # stem the words
+    return [stemmer.stem(t) for t in text]
