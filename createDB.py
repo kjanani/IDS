@@ -8,14 +8,19 @@ import os, sys
 import pymongo, json
 import glob
 
+
+full_collection_name = 'public_stream_01220123'
+hashtag_collection_name = 'collection_hashtag_01220123'
+
 def fulldb():
     '''
     code to create the full database
     '''
-    filenames = glob.glob('../data/*.json');
+    directory = '/Users/jananikalyanam/Documents/insight_application/PROJECT/data/'
+    filenames = glob.glob(directory + '*.json')[-15:];
     client = pymongo.MongoClient(); # client is the name of the connection
     db = client.IDS; # database for IDS data
-    collection = db.public_stream; # drugs is a collection (like a table)
+    collection = db[full_collection_name]; # drugs is a collection (like a table)
                         # Change this line for different drugs
 
     ii =0;    
@@ -40,8 +45,8 @@ def create_collection_hashtag():
     '''
     client = pymongo.MongoClient();
     db = client.IDS;
-    collection = db.public_stream;
-    collection_hashtag = db.collection_hashtag;
+    collection = db[full_collection_name];
+    collection_hashtag = db[hashtag_collection_name];
 
     ii = 0;
     for document in collection.find():

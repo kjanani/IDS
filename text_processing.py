@@ -5,9 +5,17 @@ import os, sys
 import pymongo
 import tweet_utils
 
+
+directory = '/Users/jananikalyanam/Documents/insight_application/PROJECT/'
+run_number = '2';
+
+client = pymongo.MongoClient();
+db = client['IDS']
+collection = db.collection_hashtag_01220123;
+
 def getvocab():
 
-    fout = open('../output/vocab_full.txt','w');
+    fout = open(directory + '/output/vocab_full.txt','w');
     vocab = dict();
     ii = 0;
     for document in collection.find():
@@ -21,15 +29,12 @@ def getvocab():
     fout.write(str(vocab))
 
 def convert_to_btm_input_training(vocab_file,output_file):
-    client = pymongo.MongoClient();
-    db = client['IDS'];
-    collection = db.collection_hashtag;
 
 
     vocab = list(map(lambda x: x.strip().split(' ')[1], open(vocab_file,'r').readlines()));
 
     fid = open(output_file,'w');
-    fid2 = open('../data_processing_files/btm_input_id_str.txt','w');
+    fid2 = open(directory + '/output/BTM_OUTPUT/models/'+run_number+'/btm_input_id_str.txt','w');
     ii = 0;
     for document in collection.find():
         ii += 1;
@@ -65,10 +70,9 @@ def convert_to_btm_input_test(vocab_file,input_text):
     return [myStr, myStr_words];
     
 
-if __name__ == '__main__':
-
-    #getvocab();
-    #convert_to_btm_input_training('../data_processing_files/vocab.txt','../data_processing_files/btm_input.txt');
-    #convert_to_btm_input_test('../data_processing_files/vocab.txt','../data_processing_files/btm_input.txt');
-
-    print(convert_to_btm_input_test(vocab_file,input_text))
+##if __name__ == '__main__':
+#    #getvocab();
+#    #convert_to_btm_input_training(directory+'/output/BTM_OUTPUT/models/'+run_number+'/vocab.txt',\
+#    #                directory+'/output/BTM_OUTPUT/models/'+run_number+'/btm_input.txt');
+#    #convert_to_btm_input_test('../data_processing_files/vocab.txt','../data_processing_files/btm_input.txt');
+#    #print(convert_to_btm_input_test(vocab_file,input_text))

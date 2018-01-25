@@ -84,7 +84,9 @@ def clean_up_normal_text(text):
     text = text.split();
 
     #remove stopwords
-    text = [t for t in text if t not in stopwords.words('english')]
+    stopwords_twitter = stopwords.words('english');
+    stopwords_twitter += ['rt', '...']
+    text = [t for t in text if t not in stopwords_twitter]
 
     #Create the stemmer
     stemmer = LancasterStemmer();

@@ -1,0 +1,37 @@
+<!doctype html>
+<title>TagMe</title>
+<link href="../static/css/bootstrap.min.css" rel="stylesheet">
+<link href="../static/css/starter-template.css" rel="stylesheet">
+{% macro input(name, value='', type='text', size=20) -%}
+<input type="{{ type }}" name="{{ name }}" value="{{value|e }}" size="{{ size }}">
+{%- endmacro %}
+<div class=page>
+		<form align = "CENTER" method = "POST">
+				Gimme your tweet:    
+				{{input("tweet",'' ,"text",100)}}
+				{{input("submit","TagMe","submit")}}
+				<!--Gimme your tweet: <input type = "text" name = "tweet" size = 100>
+				<input type="submit" Value = "TagMe" name = "submit">-->
+
+				<p>
+				<div class=metanav>
+						{% if hashtags  %}
+						<ul style="list-style-type:none">
+							{% for each_hashtag in hashtags %}
+							<li>#{{each_hashtag}}</li>
+							{% endfor %}	
+						</ul>
+						{% endif %}
+				</div>
+				</p>
+		</form>
+</div>
+
+</div>
+
+
+<!--<form align = "CENTER" method = "POST">
+		Gimme your tweet: <input type = "text" name = "tweet">
+		<input type="submit">
+
+		</form>-->
