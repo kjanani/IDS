@@ -13,7 +13,7 @@
 
 				<form align = "CENTER" method = "POST">
 						Gimme your tweet:   
-						<input type = "text" name = "tweet" size = 100 placeholder = {{tweet_text}}>
+						<input type = "text" name = "tweet" size = 100 value = {{tweet_text | safe }}>
 						<input type = "submit" value = "TagMe" name = "TagMe" >	
 						{% if hashtags %}
 						<div class=matanav align = CENTER"">

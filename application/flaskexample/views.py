@@ -13,7 +13,7 @@ import text_processing
 
 @app.route('/')
 def my_form():
-    return render_template('input.html',tweet_text='')
+    return render_template('input.html',tweet_text='Enter your tweet here')
 
 @app.route('/', methods=['POST'])
 def my_form_post():
