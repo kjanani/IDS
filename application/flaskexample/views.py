@@ -20,6 +20,4 @@ def my_form_post():
     tweet = request.form['tweet']
     tweet_text = tweet;
     hashtags = model_scripts.get_relevant_hashtags(tweet);
-    print(list(map(lambda x: x.split(','), hashtags)))
-    print(tweet)
     return render_template('input.html',hashtags = hashtags,tweet_text=tweet_text)
