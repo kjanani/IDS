@@ -13,14 +13,20 @@
 
 				<form align = "CENTER" method = "POST">
 						Gimme your tweet:   
-						<input type = "text" name = "tweet" size = 100 value = {{tweet_text | safe }}>
+						<input type = "text" name = "tweet" size = 100 value = "{{tweet_text | safe }}">
 						<input type = "submit" value = "TagMe" name = "TagMe" >	
 						{% if hashtags %}
 						<div class=matanav align = CENTER"">
 
 								<ul style="list-style-type:none">
-										{% for each_hashtag in hashtags %}
-										<li>{{each_hashtag}}</li>
+										{% for each_hashtag_list in hashtags %}
+										<li>
+										{% for each_hashtag in each_hashtag_list.split(',') %}
+										<a class="twitter-hashtag-button" 
+												href={{"https://twitter.com/intent/tweet?button_hashtag="+ 
+												each_hashtag.split('#')[1] }}> {{each_hashtag}}</a>
+										{% endfor %}
+										</li>
 										{% endfor %}	
 								</ul>
 						</div>
@@ -35,4 +41,3 @@
 				<script src="../static/js/bootstrap.min.js"></script>
 		</body>
 </html>
-

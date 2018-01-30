@@ -13,13 +13,13 @@ import text_processing
 
 @app.route('/')
 def my_form():
-    return render_template('input.html',tweet_text='Enter your tweet here')
+    return render_template('input.html',tweet_text='')
 
 @app.route('/', methods=['POST'])
 def my_form_post():
     tweet = request.form['tweet']
     tweet_text = tweet;
     hashtags = model_scripts.get_relevant_hashtags(tweet);
-    print(hashtags)
-    print(tweet_text)
+    print(list(map(lambda x: x.split(','), hashtags)))
+    print(tweet)
     return render_template('input.html',hashtags = hashtags,tweet_text=tweet_text)
